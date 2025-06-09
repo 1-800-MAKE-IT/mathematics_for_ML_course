@@ -6,7 +6,7 @@ import numpy as np
 # we will return the value True, otherwise, we will return False.
 # There is no need to edit this function.
 def isSingular(A) :
-    B = np.array(A, dtype=np.float_) # Make B as a copy of A, since we're going to alter it's values.
+    B = np.array(A, dtype=np.float64) # Make B as a copy of A, since we're going to alter it's values.
     try:
         fixRowZero(B)
         fixRowOne(B)
@@ -60,31 +60,48 @@ def fixRowOne(A) :
 
 def fixRowTwo(A) :
     # Sets the sub-diagonal elements of row two to zero (there are two of them).
-    
+    if A[2,0] != 0:
+        A[2] = A[2] - A[2,0]*A[0]
+    if A[2,1] != 0:
+        A[2] = A[2] - A[2,1]*A[1]
     
     # Next we'll test that the diagonal element is not zero.
     if A[2,2] == 0 :
-        # Insert code below that adds a lower row to row 2.
-        
-        # Now repeat your code which sets the sub-diagonal elements to zero.
-        
-        
+        # make it non zero
+        A[2] = A[2] + A[3]
+    
+    # Now repeat code which sets the sub-diagonal elements to zero as we might have changed them
+    if A[2,0] != 0:
+        A[2] = A[2] - A[2,0]*A[0]
+    if A[2,1] != 0:
+        A[2] = A[2] - A[2,1]*A[1]
+    
     if A[2,2] == 0 :
         raise MatrixIsSingular()
-    # Finally set the diagonal element to one by dividing the whole row by that element.
-    
+
+    #now simply get it to one    
+    if A[2,2] != 1:
+        A[2] = A[2]/A[2,2]
+        
     return A
 
 # You should also complete this function
 # Follow the instructions inside the function at each comment.
 def fixRowThree(A) :
-    # Insert code below to set the sub-diagonal elements of row three to zero.
-    
-    
-    
-    # Complete the if statement to test if the diagonal element is zero.
-    if :
+    # Sets the sub-diagonal elements of row three to zero (there are three of them).
+    if A[3,0] != 0:
+        A[3] = A[3] - A[3,0]*A[0]
+    if A[3,1] != 0:
+        A[3] = A[3] - A[3,1]*A[1]
+    if A[3,2] != 0:
+        A[3] = A[3] - A[3,2]*A[2]
+
+    # Next we'll test that the diagonal element is not zero.
+    if A[3,3] == 0 :
         raise MatrixIsSingular()
-    # Transform the row to set the diagonal element to one.
-    
+
+    # now simply get it to one
+    if A[3,3] != 1:
+        A[3] = A[3] / A[3,3]
+
     return A
