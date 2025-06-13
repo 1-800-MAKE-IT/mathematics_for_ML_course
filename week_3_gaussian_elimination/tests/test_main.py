@@ -1,6 +1,6 @@
 import pytest
 import numpy as np
-from main import isSingular, fixRowZero, fixRowOne, fixRowTwo, fixRowThree
+from week_3_gaussian_elimination.main import isSingular, fixRowZero, fixRowOne, fixRowTwo, fixRowThree
 
 
 @pytest.fixture
