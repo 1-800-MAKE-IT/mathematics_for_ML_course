@@ -21,7 +21,7 @@ def build_reflection_matrix(bearBasis) :
                    [0, -1]])
     
     # Combine the matrices E and TE to produce your transformation matrix.
-    T = E @ TE
+    T = E @ TE @ inv(E)
 
     # Finally, we return the result. There is no need to change this line.
     return T
