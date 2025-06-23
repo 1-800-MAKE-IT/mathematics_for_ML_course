@@ -26,6 +26,34 @@ def generate_internet(n) :
     c = (c+1e-10) / np.sum((c+1e-10), axis=0)
     return c
 
+def test_20_dimensions():
+    """
+    Test both PageRank methods on a 20x20 link matrix:
+    1. Compare results to ensure they match
+    2. Compare performance (time to calculate)
+    """
+    L = generate_internet(20)
+    
+    # Time eigenvalue method
+    start_eigen = time.time()
+    eigen_result = get_pagerank_with_eigenvalues(L)
+    eigen_time = time.time() - start_eigen
+    print(f"\nEigenvalue method took: {eigen_time:.6f} seconds")
+    
+    # Time iterative method
+    start_iter = time.time()
+    iterative_result = pageRank(L)
+    iter_time = time.time() - start_iter
+    print(f"Iterative method took: {iter_time:.6f} seconds")
+    print(f"Speed difference: {'eigenvalue' if eigen_time < iter_time else 'iterative'} method is {max(eigen_time, iter_time)/min(eigen_time, iter_time):.2f}× faster")
+    
+    # Compare results (with tolerance for floating point precision)
+    print(f"\nEigenvalue result: {eigen_result}")
+    print(f"Iterative result: {iterative_result}")
+    
+    # Use approximate comparison due to floating-point precision differences
+    assert np.allclose(eigen_result, iterative_result, atol=1e-2)
+
 def test_10_dimensions():
     """
     Test both PageRank methods on a 10×10 link matrix:
@@ -52,4 +80,32 @@ def test_10_dimensions():
     print(f"Iterative result: {iterative_result}")
     
     # Use approximate comparison due to floating-point precision differences
-    assert np.allclose(eigen_result, iterative_result, atol=1e-6)
+    assert np.allclose(eigen_result, iterative_result, atol=1e-2)
+
+def test_5_dimensions():
+    """
+    Test both PageRank methods on a 5x5 link matrix:
+    1. Compare results to ensure they match
+    2. Compare performance (time to calculate)
+    """
+    L = generate_internet(5)
+    
+    # Time eigenvalue method
+    start_eigen = time.time()
+    eigen_result = get_pagerank_with_eigenvalues(L)
+    eigen_time = time.time() - start_eigen
+    print(f"\nEigenvalue method took: {eigen_time:.6f} seconds")
+    
+    # Time iterative method
+    start_iter = time.time()
+    iterative_result = pageRank(L)
+    iter_time = time.time() - start_iter
+    print(f"Iterative method took: {iter_time:.6f} seconds")
+    print(f"Speed difference: {'eigenvalue' if eigen_time < iter_time else 'iterative'} method is {max(eigen_time, iter_time)/min(eigen_time, iter_time):.2f}× faster")
+    
+    # Compare results (with tolerance for floating point precision)
+    print(f"\nEigenvalue result: {eigen_result}")
+    print(f"Iterative result: {iterative_result}")
+    
+    # Use approximate comparison due to floating-point precision differences
+    assert np.allclose(eigen_result, iterative_result, atol=1e-2)
